@@ -42,4 +42,9 @@ public class StepDefinition {
 		System.out.println("");
 		System.out.println("");
 	}
+	
+	@Given("Normal scenario")
+	public void normal() {
+		System.out.println("NORMAL NO EXTERNAL DATA STEP");
+	}
 }

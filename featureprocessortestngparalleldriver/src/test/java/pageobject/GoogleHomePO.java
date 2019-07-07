@@ -1,6 +1,7 @@
 package pageobject;
 
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.LoadableComponent;
@@ -15,9 +16,6 @@ public class GoogleHomePO extends LoadableComponent<GoogleHomePO>{
 	@FindBy(css="div[class='FPdoLc VlcLAe'] input[name='btnK']")
 	private WebElement searchButton;
 	
-	@FindBy(css="img[alt='Google']")
-	private WebElement googleImage;	
-	
 	public GoogleHomePO() {
 		DriverFactory.getDriver().get("https://www.google.com/");
 		PageFactory.initElements(DriverFactory.getDriver(), this);
@@ -26,7 +24,8 @@ public class GoogleHomePO extends LoadableComponent<GoogleHomePO>{
 	public GoogleSearchPO performSearch(String search) {
 		searchTextBox.sendKeys(search);
 		//Intermittent error - To get rid of suggestion dropdown so search button can be found.
-		googleImage.click();
+		Actions action = new Actions(DriverFactory.getDriver());
+		action.moveByOffset(10, 10).click().perform();
 		searchButton.click();
 		return new GoogleSearchPO();
 	}
